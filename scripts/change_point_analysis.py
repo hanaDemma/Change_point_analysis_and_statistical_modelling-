@@ -2,6 +2,27 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from statsmodels.tsa.seasonal import seasonal_decompose  # type: ignore
+import pymc as pm
+from statsmodels.tsa.stattools import adfuller
+from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
+
+from statsmodels.tsa.arima.model import ARIMA
+import numpy as np
+from prophet import Prophet
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import LSTM, Dense
+from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import Sequential # type: ignore
+from tensorflow.keras.layers import LSTM, Dense # type: ignore
+from statsmodels.tsa.api import VAR
+
 
 import pymc as pm
 
@@ -143,4 +164,22 @@ def changePointDetection(price_data):
 
     pm.plot_trace(trace,figsize=(20,20))
     plt.show()
-    
+
+def autoCorrAndPartialAutoCorr(price_data):
+    plt.figure(figsize=(12, 6))
+    plot_acf(price_data['Price'], lags=40)
+    plt.show()
+
+    plt.figure(figsize=(12, 6))
+    plot_pacf(price_data['Price'], lags=40)
+    plt.show()
+
+def arimaModel(price_data,test):
+    # order(p,d,q)
+    arima_model = ARIMA(price_data['Price'], order=(1, 1, 1)) 
+    arima_result = arima_model.fit()
+    print(arima_result.summary())
+
+    # Forecasting
+    arima_forecast = arima_result.forecast(steps=len(test))
+    return arima_forecast
