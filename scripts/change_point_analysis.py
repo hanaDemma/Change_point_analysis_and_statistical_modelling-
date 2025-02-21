@@ -3,27 +3,17 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
-
-import pandas as pd
-import matplotlib.pyplot as plt
 import seaborn as sns
 from statsmodels.tsa.seasonal import seasonal_decompose  # type: ignore
 import pymc as pm
 from statsmodels.tsa.stattools import adfuller
 from statsmodels.graphics.tsaplots import plot_acf, plot_pacf
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
-
 from statsmodels.tsa.arima.model import ARIMA
-import numpy as np
-from prophet import Prophet
-from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM, Dense
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.models import Sequential # type: ignore
-from tensorflow.keras.layers import LSTM, Dense # type: ignore
 from statsmodels.tsa.api import VAR
-
-
 import pymc as pm
 
 def change_point_analysis(data):

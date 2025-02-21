@@ -2,43 +2,50 @@
 
 ## Overview
 
-This project analyzes historical Brent oil prices using various statistical and machine learning models, including ARIMA, and LSTM. The objective is to gain insights into the price trends and make future price predictions based on the historical data.
+This project analyzes historical Brent oil prices using various statistical and machine learning models, including ARIMA and LSTM. The objective is to gain insights into price trends and make future price predictions based on historical data.
 
 ## Folder Structure 
 
 CHANGE_POINT_ANALYSIS_AND_STATISTICAL_MODELLING/
+│── .github/
 
-├── .github/
+│── week10/
 
-├── .week10/
+│── notebooks/
 
-├── .notebooks/
-
-│   ├── changePointAnalysis
+│   │── changePointAnalysis.ipynb
 
 │   └── README.md
 
-├── .scripts/
+│── scripts/
 
-│   ├── change_point_analysis.py
+│   │── change_point_analysis.py
 
-│   ├── data_loader.py
+│   │── data_loader.py
 
-│   ├── ploty.py
+│   │── plot.py
 
-├── .src/
+│── src/
 
-├── .tests/
+│── tests/
 
-├── .gitignore
+│── .gitignore
 
-├── README.md
+│── README.md
 
 └── requirements.txt
 
+## Features
 
+📈 Time Series Analysis – Extracts key insights from historical Brent oil price data.
+🔍 Change Point Detection – Identifies significant trend shifts in the data using statistical methods.
+🏛 Statistical Modeling – Implements models such as ARIMA and VAR for price forecasting.
+🤖 Deep Learning Integration – Uses LSTM networks to capture complex price movement patterns.
+📊 Data Visualization – Generates interactive plots using Matplotlib and Seaborn.
+🔄 Automated Preprocessing – Handles missing values, feature extraction, and normalization.
+📡 Model Evaluation – Calculates performance metrics like RMSE, MAE, and R² score for predictions.
 
-## Technologies
+## Technologies Used
 
 To run this project, you will need the following Python packages:
 
@@ -79,5 +86,4 @@ We welcome contributions to enhance the fraud detection system. Please follow th
    - Push to your fork: Upload your changes to your GitHub repository.
    - Create a Pull Request: Submit a PR to the main repository for review.
    License
-
-- For more information and detailed documentation, please refer to the README.md file.
+   - For more information and detailed documentation, please refer to the README.md file.
