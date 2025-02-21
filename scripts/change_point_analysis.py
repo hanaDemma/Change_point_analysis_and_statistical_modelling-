@@ -3,6 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.signal import find_peaks
 
+import pymc as pm
+
 def change_point_analysis(data):
     data['Date'] = pd.to_datetime(data['Date'])
     data = data.sort_values(by='Date').reset_index(drop=True)
@@ -120,3 +122,25 @@ def change_point_analysis(data):
     results_df.to_csv('./docs/change_points.csv', index=False)
 
     print("Detected Change Points and Significant Change Points have been saved to 'docs/change_points.csv'.")
+
+
+def changePointDetection(price_data):
+    prices = price_data['Price'].values
+    n = len(prices)
+
+    with pm.Model() as model:
+        change_point = pm.DiscreteUniform("change_point", lower=0, upper=n)
+
+        mean1 = pm.Normal("mean1", mu=np.mean(prices[:n//2]), sigma=np.std(prices[:n//2]))
+        mean2 = pm.Normal("mean2", mu=np.mean(prices[n//2:]), sigma=np.std(prices[n//2:]))
+        sigma = pm.HalfNormal("sigma", sigma=10)
+
+        idx = np.arange(n)
+        mean = pm.math.switch(idx < change_point, mean1, mean2)
+        obs = pm.Normal("obs", mu=mean, sigma=sigma, observed=prices)
+
+        trace = pm.sample(1500, tune=1500, target_accept=0.95, chains=4)
+
+    pm.plot_trace(trace,figsize=(20,20))
+    plt.show()
+    
