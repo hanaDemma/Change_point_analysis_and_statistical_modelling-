@@ -118,3 +118,66 @@ def garch(data):
 
     plt.tight_layout()
     plt.show()
+
+
+def all_models(data):
+    data['date'] = pd.to_datetime(data['Date'])  # Adjust 'Date' if necessary
+    data.set_index('date', inplace=True)
+
+    # Calculate the price difference
+    data['price_diff'] = data['Price'].diff().dropna()
+
+    # Fit the ARIMA model to the price differences
+    arima_model = ARIMA(data['price_diff'].dropna(), order=(1, 0, 1))  # d=0 since price_diff is already differenced
+    fitted_arima = arima_model.fit()
+
+    # Print the summary of the ARIMA model
+    print("ARIMA Model Summary:")
+    print(fitted_arima.summary())
+
+    # Get the residuals from the ARIMA model
+    arima_residuals = fitted_arima.resid
+
+    # Fit the GARCH model to the ARIMA residuals
+    garch_model = arch_model(arima_residuals, vol='Garch', p=1, q=1)
+    garch_fit = garch_model.fit(disp='off')
+
+    # Print the summary of the GARCH model
+    print("GARCH Model Summary:")
+    print(garch_fit.summary())
+
+    # Generate ARIMA fitted values
+    arima_fitted_values = fitted_arima.fittedvalues
+
+    # Prepare the index for plotting
+    price_diff_index = data.index[1:]  # Exclude the first index since it corresponds to NaN after differencing
+
+    # Plot the actual price, ARIMA fitted values, and GARCH conditional volatility
+    plt.figure(figsize=(12, 8))
+
+    # Plot actual price
+    plt.subplot(3, 1, 1)
+    plt.plot(data['Price'], color='blue', label='Actual Price')
+    plt.title('Actual Price')
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    plt.legend()
+
+    # Plot ARIMA fitted values
+    plt.subplot(3, 1, 2)
+    plt.plot(price_diff_index, arima_fitted_values, color='green', label='ARIMA Fitted Values')
+    plt.title('ARIMA Fitted Values')
+    plt.xlabel('Date')
+    plt.ylabel('Fitted Price Difference')
+    plt.legend()
+
+    # Plot conditional volatility from GARCH model
+    plt.subplot(3, 1, 3)
+    plt.plot(price_diff_index, garch_fit.conditional_volatility, color='orange', label='Conditional Volatility')
+    plt.title('GARCH Model Conditional Volatility')
+    plt.xlabel('Date')
+    plt.ylabel('Volatility')
+    plt.legend()
+
+    plt.tight_layout()
+    plt.show()
