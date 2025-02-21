@@ -35,8 +35,15 @@ CHANGE_POINT_ANALYSIS_AND_STATISTICAL_MODELLING/
 
 └── requirements.txt
 
+## Features
 
-
+📈 Time Series Analysis – Extracts key insights from historical Brent oil price data.
+🔍 Change Point Detection – Identifies significant trend shifts in the data using statistical methods.
+🏛 Statistical Modeling – Implements models such as ARIMA and VAR for price forecasting.
+🤖 Deep Learning Integration – Uses LSTM networks to capture complex price movement patterns.
+📊 Data Visualization – Generates interactive plots using Matplotlib and Seaborn.
+🔄 Automated Preprocessing – Handles missing values, feature extraction, and normalization.
+📡 Model Evaluation – Calculates performance metrics like RMSE, MAE, and R² score for predictions.
 
 ## Technologies Used
 
