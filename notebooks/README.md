@@ -1,6 +1,6 @@
 ###  Task 1 - Data analysis workflow and understanding the model and data
 ## Overview
-This task focuses on analyzing the historical Brent oil price dataset to extract meaningful insights, identify key patterns, and understand the modeling techniques used for forecasting. The goal is to preprocess the data, visualize trends, and evaluate different statistical and machine learning models for price prediction.
+This task focuses on analyzing the historical Brent oil price dataset to extract meaningful insights, identify key patterns, and understand the modeling techniques used for forecasting. The goal is to preprocess the data, visualize trends, and evaluate different statistical  models for price prediction.
 
 ## Steps:
 
