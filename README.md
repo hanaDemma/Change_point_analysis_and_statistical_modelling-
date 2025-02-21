@@ -13,7 +13,7 @@ CHANGE_POINT_ANALYSIS_AND_STATISTICAL_MODELLING/
 
 │── notebooks/
 
-│   │── changePointAnalysis.ipynb
+│   │── change_point_analysis.ipynb
 
 │   └── README.md
 
