@@ -181,3 +181,60 @@ def all_models(data):
 
     plt.tight_layout()
     plt.show()
+
+
+def lstm(data):
+    data['date'] = pd.to_datetime(data['Date'])  # Adjust 'Date' if necessary
+    data.set_index('date', inplace=True)
+
+    # Calculate the price difference and drop NaNs
+    data['price_diff'] = data['Price'].diff().dropna()
+    data = data.dropna()  # Drop NaN values from the DataFrame
+
+    # Scale the price difference data
+    scaler = MinMaxScaler(feature_range=(0, 1))
+    scaled_data = scaler.fit_transform(data['price_diff'].values.reshape(-1, 1))
+
+    # Prepare the dataset for LSTM
+    sequence_length = 60
+    X, y = [], []
+
+    for i in range(sequence_length, len(scaled_data)):
+        X.append(scaled_data[i-sequence_length:i, 0])
+        y.append(scaled_data[i, 0])
+
+    X, y = np.array(X), np.array(y)
+    X = np.reshape(X, (X.shape[0], X.shape[1], 1))  # Reshape for LSTM input
+
+    # Build the LSTM model
+    model = Sequential([
+        LSTM(50, return_sequences=True, input_shape=(X.shape[1], 1)),
+        LSTM(50),
+        Dense(1)
+    ])
+
+    model.compile(optimizer='adam', loss='mean_squared_error')
+
+    # Fit the model with more epochs
+    model.fit(X, y, epochs=10, batch_size=32)
+
+    # Generate predictions
+    predictions = model.predict(X)
+    predictions = scaler.inverse_transform(predictions)
+
+    # Convert predictions back to price levels
+    last_price = data['Price'].iloc[-1]  # Get the last actual price
+    predicted_prices = last_price + predictions.cumsum(axis=0)  # Cumulative sum of predicted changes
+
+    # Prepare for plotting
+    predicted_index = data.index[sequence_length:len(predicted_prices) + sequence_length]
+
+    # Plot the results
+    plt.figure(figsize=(12, 6))
+    plt.plot(data.index, data['Price'], label='Actual Price', color='blue')
+    plt.plot(predicted_index, predicted_prices, color='red', label='LSTM Prediction')
+    plt.title('LSTM Predictions vs Actual Price')
+    plt.xlabel('Date')
+    plt.ylabel('Price')
+    plt.legend()
+    plt.show()
