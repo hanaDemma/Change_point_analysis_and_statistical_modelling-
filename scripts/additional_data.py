@@ -7,6 +7,7 @@ import seaborn as sns
 
 start_date = datetime.datetime(1987, 1, 1)
 end_date = datetime.datetime(2022, 12, 31)
+countries = ['USA', 'ETH', 'GBR', 'ZAF', 'BRA', 'CHN'] 
 
 
 def gdp_data(start_date,end_date):
