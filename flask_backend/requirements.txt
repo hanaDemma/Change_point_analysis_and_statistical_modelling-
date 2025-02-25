@@ -1,0 +1,6 @@
+Flask
+Flask-Cors
+Flask-Caching
+Flask-Compress
+pandas
+gunicorn
