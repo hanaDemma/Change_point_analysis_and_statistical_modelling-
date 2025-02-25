@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 
+
 start_date = datetime.datetime(1987, 1, 1)
 end_date = datetime.datetime(2022, 12, 31)
 countries = ['USA', 'ETH', 'GBR', 'ZAF', 'BRA', 'CHN'] 
@@ -53,7 +54,6 @@ def gdp_data(start_date,end_date):
 
 
 def inflation_data(start_date,end_date):
-    countries = ['USA', 'ETH', 'GBR', 'ZAF', 'BRA', 'CHN'] 
     # Fetch Inflation data (Consumer Prices, Annual %)
     inflation_data = wbdata.get_dataframe({'FP.CPI.TOTL.ZG': 'Inflation'}, country=countries)
     inflation_data.reset_index(inplace=True)
@@ -114,25 +114,20 @@ def unemployment_data():
 
 
 def exchange_rate():
+    # Fetch the data
     exchange_rate_data = wbdata.get_dataframe({'PA.NUS.FCRF': 'Exchange Rate'}, country=countries)
     exchange_rate_data.reset_index(inplace=True)
-
-    # Convert 'date' column to datetime and filter for 1987–2022
     exchange_rate_data['date'] = pd.to_datetime(exchange_rate_data['date'])
     exchange_rate_data = exchange_rate_data[(exchange_rate_data['date'] >= start_date) & (exchange_rate_data['date'] <= end_date)]
+    
+    # (Optional) Plotting code here...
+    return exchange_rate_data 
+    
+    # Return the DataFrame
+# # Test the function
+er_df = exchange_rate()
+print("Type of er_df:", type(er_df))
 
-    # Display the Exchange Rate data
-    print("Exchange Rate Data:")
-    print(exchange_rate_data)
-
-    # Plotting Exchange Rate data
-    plt.figure(figsize=(12, 6))
-    sns.lineplot(data=exchange_rate_data, x='date', y='Exchange Rate', hue='country')
-    plt.title('Exchange Rate Over Time by Country (LCU per USD)')
-    plt.xlabel('Year')
-    plt.ylabel('Exchange Rate (LCU per USD)')
-    plt.show()
-    return exchange_rate
 
 def combine_all(data,inflation_data,exchange_rate_data,gdp_data,unemployment_data):
     data['Date'] = pd.to_datetime(data['Date'])
@@ -146,7 +141,6 @@ def combine_all(data,inflation_data,exchange_rate_data,gdp_data,unemployment_dat
 
     unemployment_data['date'] = pd.to_datetime(unemployment_data['date'])
     unemployment_data['year'] = unemployment_data['date'].dt.year
-
     exchange_rate_data['date'] = pd.to_datetime(exchange_rate_data['date'])
     exchange_rate_data['year'] = exchange_rate_data['date'].dt.year
 
