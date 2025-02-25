@@ -2,7 +2,17 @@
 
 ## Overview
 
-This project analyzes historical Brent oil prices using various statistical and machine learning models, including ARIMA and LSTM. The objective is to gain insights into price trends and make future price predictions based on historical data.
+This project analyzes historical Brent oil prices using statistical and machine learning models, including ARIMA, Bayesian inference, and LSTM. The goal is to detect change points, identify key economic and political factors influencing prices, and build predictive models for future trends.
+
+Additionally, this project includes an interactive dashboard built with Flask (backend) and React (frontend) to visualize price trends and event correlations.
+
+
+## Business Objective
+The main objective of this project is to study how major global events impact Brent oil prices. This includes:
+
+- Identifying key political, economic, and technological events that significantly affect oil prices.
+- Measuring price fluctuations before and after key events (e.g., OPEC decisions, sanctions, conflicts).
+- Providing data-driven insights for investors, policymakers, and energy companies.
 
 ## Folder Structure 
 
@@ -11,11 +21,17 @@ CHANGE_POINT_ANALYSIS_AND_STATISTICAL_MODELLING/
 
 │── week10/
 
+│── dashboard_screen_shot/
+
+│── flask_backend/
+
 │── notebooks/
 
 │   │── change_point_analysis.ipynb
 
 │   └── README.md
+
+│ ── react-app/
 
 │── scripts/
 
@@ -42,25 +58,33 @@ CHANGE_POINT_ANALYSIS_AND_STATISTICAL_MODELLING/
 - 🏛 Statistical Modeling – Implements models such as ARIMA and VAR for price forecasting.
 - 🤖 Deep Learning Integration – Uses LSTM networks to capture complex price movement patterns.
 - 📊 Data Visualization – Generates interactive plots using Matplotlib and Seaborn.
+- ✅ Macroeconomic Factors – Study the effects of GDP, inflation, unemployment, and exchange rates on oil prices.
 - 🔄 Automated Preprocessing – Handles missing values, feature extraction, and normalization.
 - 📡 Model Evaluation – Calculates performance metrics like RMSE, MAE, and R² score for predictions.
+- ✅ Interactive Dashboard – Visualize price trends using Flask (backend) and React (frontend).
+
 
 ## Technologies Used
 
-To run this project, you will need the following Python packages:
+The project uses Python, Flask, React, and various data science libraries:
 
-* pandas
-* numpy
-* matplotlib
-* seaborn
-* statsmodels
-* scikit-learn
-* TensorFlow/Keras
+* Backend (Flask)
+   - Flask – API development
+   - pandas & NumPy – Data processing
+   - statsmodels – Statistical analysis
+   - scikit-learn – Machine learning models
+   - TensorFlow/Keras – Deep learning models
+   - PyMC3 – Bayesian inference
 
+* Frontend (React)
+   - React.js – UI development
+   - Recharts, D3.js – Interactive visualizations
+   - react-chartjs-2 – Charts and graphs
 
 
 ## Installation
 
+1️⃣ Clone the repository
 To set up the project on your local machine, follow these steps:
 
 
@@ -75,6 +99,19 @@ To set up the project on your local machine, follow these steps:
    ```bash
    pip install -r requirements.txt
 
+
+2️⃣ Set up the backend
+   - cd flask_backend
+   - pip install -r requirements.txt
+   - flask run
+
+3️⃣ Set up the frontend
+   - cd ../react-app
+   - npm install
+   - npm run dev
+
+4️⃣ Access the dashboard
+Open http://localhost:5173 in your browser to view the React dashboard.
 
 ## Contributing
 
