@@ -1,0 +1,21 @@
+.container {
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+h1, h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: #444;
+}
+
+p {
+    font-weight: 300;
+    color: #555;
+}
+
+/* Add subtle shadow for text clarity */
+h1, h2, p {
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.1);
+}
